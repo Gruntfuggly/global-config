@@ -4,6 +4,8 @@ I got fed up constantly having to copy shared configuration files (tasks.json, s
 
 In-built support for shared config is apparently on the radar (for [standard vscode ](https://github.com/Microsoft/vscode/issues/1435) and for the [cpp extension](https://github.com/Microsoft/vscode-cpptools/issues/996)), but it seems to be taking a while, so this might be useful until it arrives.
 
+_Note: Existing files will not be replaced._
+
 ## Installing
 
 You can install the latest version of the extension via the Visual Studio Marketplace [here](https://marketplace.visualstudio.com/items?itemName=Gruntfuggly.global-config).

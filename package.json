@@ -3,7 +3,7 @@
   "displayName": "Global Config",
   "description": "Copies global config files (settings.json, tasks.json, etc.) to workspace config folder",
   "icon": "icon.png",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "publisher": "Gruntfuggly",
   "repository": "https://github.com/Gruntfuggly/global-config",
   "engines": {
