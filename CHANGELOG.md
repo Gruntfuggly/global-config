@@ -1,3 +1,6 @@
+# v0.0.4 - 2018-02-21
+- Fix stupid exists test for symlinks
+
 # v0.0.3 - 2018-02-21
 - Add option to make symlinks of certain files instead of copying
 

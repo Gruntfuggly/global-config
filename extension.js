@@ -46,7 +46,7 @@ function activate( context )
                         var target = path.join( destination, entry );
                         if( links.indexOf( entry ) > -1 )
                         {
-                            if( !fs.exists( target ) )
+                            if( !fs.existsSync( target ) )
                             {
                                 fs.symlinkSync( file, target );
                             }
