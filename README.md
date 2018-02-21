@@ -23,3 +23,7 @@ The source code is available on GitHub [here](https://github.com/Gruntfuggly/glo
 `global-config.folder`
 
 Use this to set which folder should contain your shared config files. The default is `~/.vscode`. Only files are copied (no folders).
+
+`global-config.links`
+
+This is an array of files which should be symlinked instead of copied. This is useful for files which may change in the future, e.g. settings.json

@@ -3,7 +3,7 @@
   "displayName": "Global Config",
   "description": "Copies global config files (settings.json, tasks.json, etc.) to workspace config folder",
   "icon": "icon.png",
-  "version": "0.0.2",
+	"version": "0.0.3",
   "publisher": "Gruntfuggly",
   "repository": "https://github.com/Gruntfuggly/global-config",
   "engines": {
@@ -31,6 +31,11 @@
           "type": "string",
           "description": "The folder containing your default config files",
           "default": "~/.vscode/"
+                },
+                "global-config.links": {
+                    "type": "array",
+                    "description": "A list of files that should be soft linked rather than copied",
+                    "default": []
         }
       }
     }
@@ -45,5 +50,10 @@
   },
   "dependencies": {
     "fs-extra": "^5.0.0"
+	},
+	"__metadata": {
+		"id": "9a3d81ec-d459-4139-aa0f-d07452e0e894",
+		"publisherDisplayName": "Gruntfuggly",
+		"publisherId": "d4906d2e-f2ee-492d-9c7c-02b6160599ec"
   }
 }

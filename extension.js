@@ -26,6 +26,7 @@ function activate( context )
         }
 
         var destination = path.join( workspacePath, ".vscode" );
+        var links = vscode.workspace.getConfiguration( 'global-config' ).get( 'links' );
 
         fs.readdir( source, function( err, list )
         {
@@ -42,7 +43,18 @@ function activate( context )
                     var stat = fs.statSync( file );
                     if( stat && !stat.isDirectory() )
                     {
-                        fs.copySync( file, path.join( destination, entry ), { overwrite: false } );
+                        var target = path.join( destination, entry );
+                        if( links.indexOf( entry ) > -1 )
+                        {
+                            if( !fs.exists( target ) )
+                            {
+                                fs.symlinkSync( file, target );
+                            }
+                        }
+                        else
+                        {
+                            fs.copySync( file, target, { overwrite: false } );
+                        }
                     }
                 } );
             }
