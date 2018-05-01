@@ -1,3 +1,6 @@
+# v0.0.5 - 2018-05-01
+- Make sure .vscode folder exists
+
 # v0.0.4 - 2018-02-21
 - Fix stupid exists test for symlinks
 

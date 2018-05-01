@@ -26,6 +26,8 @@ function activate( context )
         }
 
         var destination = path.join( workspacePath, ".vscode" );
+        fs.ensureDirSync( destination );
+
         var links = vscode.workspace.getConfiguration( 'global-config' ).get( 'links' );
 
         fs.readdir( source, function( err, list )

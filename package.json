@@ -1,59 +1,59 @@
 {
-  "name": "global-config",
-  "displayName": "Global Config",
-  "description": "Copies global config files (settings.json, tasks.json, etc.) to workspace config folder",
-  "icon": "icon.png",
-	"version": "0.0.4",
-  "publisher": "Gruntfuggly",
-  "repository": "https://github.com/Gruntfuggly/global-config",
-  "engines": {
-    "vscode": "^1.5.0"
-  },
-  "categories": [
-    "Other"
-  ],
-  "activationEvents": [
-    "*"
-  ],
-  "main": "./extension",
-  "contributes": {
-    "commands": [
-      {
-        "command": "global-config.copy",
-        "title": "Copy global config"
-      }
-    ],
-    "configuration": {
-      "type": "object",
-      "title": "global-config configuration",
-      "properties": {
-        "global-config.folder": {
-          "type": "string",
-          "description": "The folder containing your default config files",
-          "default": "~/.vscode/"
+	"name": "global-config",
+	"displayName": "Global Config",
+	"description": "Copies global config files (settings.json, tasks.json, etc.) to workspace config folder",
+	"icon": "icon.png",
+	"version": "0.0.5",
+	"publisher": "Gruntfuggly",
+	"repository": "https://github.com/Gruntfuggly/global-config",
+	"engines": {
+		"vscode": "^1.5.0"
+	},
+	"categories": [
+		"Other"
+	],
+	"activationEvents": [
+		"*"
+	],
+	"main": "./extension",
+	"contributes": {
+		"commands": [
+			{
+				"command": "global-config.copy",
+				"title": "Copy global config"
+			}
+		],
+		"configuration": {
+			"type": "object",
+			"title": "global-config configuration",
+			"properties": {
+				"global-config.folder": {
+					"type": "string",
+					"description": "The folder containing your default config files",
+					"default": "~/.vscode/"
                 },
                 "global-config.links": {
                     "type": "array",
                     "description": "A list of files that should be soft linked rather than copied",
                     "default": []
-        }
-      }
-    }
-  },
-  "devDependencies": {
-    "typescript": "^2.0.3",
-    "vscode": "^1.0.0",
-    "mocha": "^2.3.3",
-    "eslint": "^3.6.0",
-    "@types/node": "^6.0.40",
-    "@types/mocha": "^2.2.32"
-  },
-  "dependencies": {
-    "fs-extra": "^5.0.0"
+                }
+			}
+		}
+	},
+	"devDependencies": {
+		"typescript": "^2.0.3",
+		"vscode": "^1.0.0",
+		"mocha": "^2.3.3",
+		"eslint": "^3.6.0",
+		"@types/node": "^6.0.40",
+		"@types/mocha": "^2.2.32"
+	},
+	"dependencies": {
+		"fs-extra": "^5.0.0"
 	},
 	"__metadata": {
 		"id": "9a3d81ec-d459-4139-aa0f-d07452e0e894",
 		"publisherDisplayName": "Gruntfuggly",
 		"publisherId": "d4906d2e-f2ee-492d-9c7c-02b6160599ec"
-  }
+	}
 }
