@@ -1,3 +1,6 @@
+# v0.0.6 - 2018-07-13
+- Fix command title and tidy ups (thanks to [fr3fou](https://github.com/fr3fou))
+
 # v0.0.5 - 2018-05-01
 - Make sure .vscode folder exists
 
