@@ -20,7 +20,7 @@
 		"commands": [
 			{
 				"command": "global-config.copy",
-				"title": "Copy global config"
+				"title": "Copy Global Config"
 			}
 		],
 		"configuration": {
