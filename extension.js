@@ -25,12 +25,12 @@ function activate(context) {
 
         let links = vscode.workspace.getConfiguration('global-config').get('links');
 
-        fs.readdir(source, function (err, list) {
+        fs.readdir(source, (err, list) => {
             if (err) {
                 console.log(err);
             }
             else {
-                list.forEach(function (entry) {
+                list.forEach((entry) => {
                     let file = path.join(source, entry);
 
                     let stat = fs.statSync(file);
@@ -55,7 +55,4 @@ function activate(context) {
     context.subscriptions.push(disposable);
 }
 exports.activate = activate;
-
-function deactivate() {
-}
-exports.deactivate = deactivate;
+exports.deactivate = () => { };
