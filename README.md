@@ -1,6 +1,6 @@
-# Glboal Config
+# Global Config
 
-I got fed up constantly having to copy shared configuration files (tasks.json, settings.json, launch.json and cpp_properties.json) into every folder in my project (there are hundreds) so this extension simply adds a command `Copy global config` to copy them into the local *.vscode* folder from a shared location.
+I got fed up constantly having to copy shared configuration files (tasks.json, settings.json, launch.json and cpp_properties.json) into every folder in my project (there are hundreds) so this extension simply adds a command `Copy Global Config` to copy them into the local *.vscode* folder from a shared location.
 
 In-built support for shared config is apparently on the radar (for [standard vscode ](https://github.com/Microsoft/vscode/issues/1435) and for the [cpp extension](https://github.com/Microsoft/vscode-cpptools/issues/996)), but it seems to be taking a while, so this might be useful until it arrives.
 
