@@ -1,3 +1,7 @@
+# v0.0.8 - 2019-03-11
+- Remove restriction on copying folders
+- Extend README.md
+
 # v0.0.7 - 2018-07-23
 - Fix typos in README.md (thanks to [fr3fou](https://github.com/fr3fou))
 
