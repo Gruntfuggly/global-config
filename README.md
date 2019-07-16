@@ -12,6 +12,8 @@ To use:
 
 *Note: Existing files will not be replaced.*
 
+When used in a multi-root workspace folder, the global files are copied into each workspace *.vscode* folder.
+
 ## Installing
 
 You can install the latest version of the extension via the Visual Studio Marketplace [here](https://marketplace.visualstudio.com/items?itemName=Gruntfuggly.global-config).

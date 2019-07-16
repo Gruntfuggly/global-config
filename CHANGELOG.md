@@ -1,3 +1,6 @@
+# v0.0.9 - 2019-07-16
+- Add support for multi-root workspaces
+
 # v0.0.8 - 2019-03-11
 - Remove restriction on copying folders
 - Extend README.md
