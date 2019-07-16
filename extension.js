@@ -8,6 +8,54 @@ function activate( context )
 {
     function copyConfig()
     {
+        function copyToWorkspace( workspacePath )
+        {
+            console.log( "Updating " + workspacePath + " from " + source );
+
+            let destination = path.join( workspacePath, ".vscode" );
+            fs.ensureDirSync( destination );
+
+            let links = vscode.workspace.getConfiguration( 'global-config' ).get( 'links' );
+
+            fs.readdir( source, ( err, list ) =>
+            {
+                if( err )
+                {
+                    console.log( err );
+                }
+                else
+                {
+                    list.forEach( ( entry ) =>
+                    {
+                        let file = path.join( source, entry );
+
+                        let stat = fs.statSync( file );
+                        if( stat )
+                        {
+                            let target = path.join( destination, entry );
+                            if( fs.existsSync( target ) )
+                            {
+                                console.log( "Ignoring existing " + target );
+                            }
+                            else
+                            {
+                                if( links.indexOf( entry ) > -1 )
+                                {
+                                    console.log( "linking " + entry + " -> " + destination );
+                                    fs.symlinkSync( file, target );
+                                }
+                                else
+                                {
+                                    console.log( "copying " + entry + " -> " + destination );
+                                    fs.copySync( file, target, { overwrite: false } );
+                                }
+                            }
+                        }
+                    } );
+                }
+            } );
+        }
+
         let source = vscode.workspace.getConfiguration( 'global-config' ).get( 'folder' );
 
         if( source.startsWith( "~" ) )
@@ -15,52 +63,19 @@ function activate( context )
             source = path.join( os.homedir(), source.substr( 1 ) );
         }
 
-        let workspacePath;
-        if( vscode.workspaceFolders && vscode.workspaceFolders.length > 0 )
+        if( vscode.workspace.workspaceFolders )
         {
-            workspacePath = vscode.workspace.workspaceFolders[ 0 ];
-        }
-        if( workspacePath === undefined )
-        {
-            workspacePath = vscode.workspace.rootPath;
-        }
-
-        let destination = path.join( workspacePath, ".vscode" );
-        fs.ensureDirSync( destination );
-
-        let links = vscode.workspace.getConfiguration( 'global-config' ).get( 'links' );
-
-        fs.readdir( source, ( err, list ) =>
-        {
-            if( err )
+            console.log( "Updating workspaces..." );
+            vscode.workspace.workspaceFolders.map( function( workspaceFolder )
             {
-                console.log( err );
-            }
-            else
-            {
-                list.forEach( ( entry ) =>
-                {
-                    let file = path.join( source, entry );
-
-                    let stat = fs.statSync( file );
-                    if( stat )
-                    {
-                        let target = path.join( destination, entry );
-                        if( links.indexOf( entry ) > -1 )
-                        {
-                            if( !fs.existsSync( target ) )
-                            {
-                                fs.symlinkSync( file, target );
-                            }
-                        }
-                        else
-                        {
-                            fs.copySync( file, target, { overwrite: false } );
-                        }
-                    }
-                } );
-            }
-        } );
+                copyToWorkspace( workspaceFolder.uri.fsPath );
+            } );
+        }
+        else
+        {
+            console.log( "Updating root workspace..." );
+            copyToWorkspace( vscode.workspace.rootPath );
+        }
     }
 
     let disposable = vscode.commands.registerCommand( 'global-config.copy', copyConfig );
