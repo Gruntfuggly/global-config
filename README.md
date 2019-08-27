@@ -35,3 +35,9 @@ Use this to set which folder should contain your shared config files. The defaul
 `global-config.links`
 
 This is an array of files which should be symlinked instead of copied. This is useful for files which may change in the future, e.g. settings.json
+
+*Note: For symlinks to work correctly under Windows 10 (and possible other Windows versions) you will need to run Code in **Developer Mode***.
+
+## Output
+
+When the **Copy Global Config** is run, an output channel is created in the Output View. If the extension doesn't seem to be doing what you expect, please check the contents of the output channel.

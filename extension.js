@@ -6,11 +6,23 @@ let vscode = require( 'vscode' ),
 
 function activate( context )
 {
+    var outputChannel;
+
     function copyConfig()
     {
+        function debug( text )
+        {
+            if( outputChannel === undefined )
+            {
+                outputChannel = vscode.window.createOutputChannel( "Global Config" );
+            }
+
+            outputChannel.appendLine( text );
+        }
+
         function copyToWorkspace( workspacePath )
         {
-            console.log( "Updating " + workspacePath + " from " + source );
+            debug( " Updating " + workspacePath + " from " + source );
 
             let destination = path.join( workspacePath, ".vscode" );
             fs.ensureDirSync( destination );
@@ -21,7 +33,7 @@ function activate( context )
             {
                 if( err )
                 {
-                    console.log( err );
+                    debug( err );
                 }
                 else
                 {
@@ -35,18 +47,18 @@ function activate( context )
                             let target = path.join( destination, entry );
                             if( fs.existsSync( target ) )
                             {
-                                console.log( "Ignoring existing " + target );
+                                debug( "  Ignoring existing " + target );
                             }
                             else
                             {
                                 if( links.indexOf( entry ) > -1 )
                                 {
-                                    console.log( "linking " + entry + " -> " + destination );
+                                    debug( "  Linking " + entry + " -> " + destination );
                                     fs.symlinkSync( file, target );
                                 }
                                 else
                                 {
-                                    console.log( "copying " + entry + " -> " + destination );
+                                    debug( "  Copying " + entry + " -> " + destination );
                                     fs.copySync( file, target, { overwrite: false } );
                                 }
                             }
@@ -65,16 +77,11 @@ function activate( context )
 
         if( vscode.workspace.workspaceFolders )
         {
-            console.log( "Updating workspaces..." );
+            debug( "Updating workspaces..." );
             vscode.workspace.workspaceFolders.map( function( workspaceFolder )
             {
                 copyToWorkspace( workspaceFolder.uri.fsPath );
             } );
-        }
-        else
-        {
-            console.log( "Updating root workspace..." );
-            copyToWorkspace( vscode.workspace.rootPath );
         }
     }
 

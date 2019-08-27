@@ -1,3 +1,8 @@
+# v0.0.10 - 2019-08-27
+- Add note to README.md about Windows developer mode for symlinks
+- Send debug/trace details to an output window
+- Remove deprecated use of rootPath
+
 # v0.0.9 - 2019-07-16
 - Add support for multi-root workspaces
 
