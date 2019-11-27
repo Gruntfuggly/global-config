@@ -1,3 +1,4 @@
+# v0.0.12 - 2019-11-27
 - Remove misleading config from package.json
 
 # v0.0.11 - 2019-11-27
