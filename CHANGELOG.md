@@ -1,3 +1,4 @@
+# v0.0.11 - 2019-11-27
 - Add support for a choice of source files
 
 # v0.0.10 - 2019-08-27
