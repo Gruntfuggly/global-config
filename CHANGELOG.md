@@ -1,3 +1,5 @@
+- Remove misleading config from package.json
+
 # v0.0.11 - 2019-11-27
 - Add support for a choice of source files
 

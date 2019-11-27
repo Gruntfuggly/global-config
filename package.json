@@ -36,11 +36,6 @@
                     "description": "The folder containing your default config files",
                     "default": "~/.vscode/"
                 },
-                "global-config.folders": {
-                    "type": "array",
-                    "description": "An array of folders containing your default config files, allowing a set to be chosen",
-                    "default": []
-                },
                 "global-config.links": {
                     "type": "array",
                     "description": "A list of files that should be soft linked rather than copied",
