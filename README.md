@@ -14,6 +14,8 @@ To use:
 
 When used in a multi-root workspace folder, the global files are copied into each workspace *.vscode* folder.
 
+You can also put multiple sets of default files into subfolders of your configured source folder. When running the copy command, it will prompt you to choose one of the subfolders first. Note, using subfolders will ignore any files in the configured source folder.
+
 ## Installing
 
 You can install the latest version of the extension via the Visual Studio Marketplace [here](https://marketplace.visualstudio.com/items?itemName=Gruntfuggly.global-config).

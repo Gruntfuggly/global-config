@@ -1,3 +1,5 @@
+- Add support for a choice of source files
+
 # v0.0.10 - 2019-08-27
 - Add note to README.md about Windows developer mode for symlinks
 - Send debug/trace details to an output window

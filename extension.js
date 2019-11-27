@@ -8,19 +8,19 @@ function activate( context )
 {
     var outputChannel;
 
-    function copyConfig()
+    function debug( text )
     {
-        function debug( text )
+        if( outputChannel === undefined )
         {
-            if( outputChannel === undefined )
-            {
-                outputChannel = vscode.window.createOutputChannel( "Global Config" );
-            }
-
-            outputChannel.appendLine( text );
+            outputChannel = vscode.window.createOutputChannel( "Global Config" );
         }
 
-        function copyToWorkspace( workspacePath )
+        outputChannel.appendLine( text );
+    }
+
+    function copyConfig()
+    {
+        function copyToWorkspace( workspacePath, source )
         {
             debug( " Updating " + workspacePath + " from " + source );
 
@@ -68,6 +68,21 @@ function activate( context )
             } );
         }
 
+        function updateWorkspaces( source )
+        {
+            if( source )
+            {
+                if( vscode.workspace.workspaceFolders )
+                {
+                    debug( "Updating workspaces..." );
+                    vscode.workspace.workspaceFolders.map( function( workspaceFolder )
+                    {
+                        copyToWorkspace( workspaceFolder.uri.fsPath, source );
+                    } );
+                }
+            }
+        }
+
         let source = vscode.workspace.getConfiguration( 'global-config' ).get( 'folder' );
 
         if( source.startsWith( "~" ) )
@@ -75,17 +90,38 @@ function activate( context )
             source = path.join( os.homedir(), source.substr( 1 ) );
         }
 
-        if( vscode.workspace.workspaceFolders )
+        var folders = fs.readdirSync( source ).filter( function( entry )
         {
-            debug( "Updating workspaces..." );
-            vscode.workspace.workspaceFolders.map( function( workspaceFolder )
+            return fs.statSync( path.join( source, entry ) ).isDirectory();
+        } );
+
+        if( folders.length > 0 )
+        {
+            debug( "Found subfolders in " + source + "..." );
+            vscode.window.showQuickPick( folders, { placeholder: "Please select a folder" } ).then( function( selected )
             {
-                copyToWorkspace( workspaceFolder.uri.fsPath );
+                if( selected )
+                {
+                    source = path.join( source, selected );
+                    debug( " Selected subfolder: " + source );
+                    updateWorkspaces( source );
+                }
+                else
+                {
+                    source = undefined;
+                    debug( " Cancelled" );
+                }
             } );
+        }
+        else
+        {
+            updateWorkspaces( source );
         }
     }
 
     let disposable = vscode.commands.registerCommand( 'global-config.copy', copyConfig );
+
+    debug( "Ready" );
 
     context.subscriptions.push( disposable );
 }

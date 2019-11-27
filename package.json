@@ -29,12 +29,17 @@
         ],
         "configuration": {
             "type": "object",
-            "title": "global-config configuration",
+            "title": "Global Config",
             "properties": {
                 "global-config.folder": {
                     "type": "string",
                     "description": "The folder containing your default config files",
                     "default": "~/.vscode/"
+                },
+                "global-config.folders": {
+                    "type": "array",
+                    "description": "An array of folders containing your default config files, allowing a set to be chosen",
+                    "default": []
                 },
                 "global-config.links": {
                     "type": "array",
