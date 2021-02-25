@@ -37,13 +37,19 @@
                     "default": "~/.vscode/"
                 },
                 "global-config.links": {
+                    "items": {
+                        "type": "string"
+                    },
                     "type": "array",
-                    "description": "A list of files that should be soft linked rather than copied",
+                    "markdownDescription": "A list of files that should be soft linked rather than copied (e.g. `tasks.json`)",
                     "default": []
                 },
                 "global-config.hardLinks": {
+                    "items": {
+                        "type": "string"
+                    },
                     "type": "array",
-                    "description": "A list of files that should be hark linked rather than copied",
+                    "markdownDescription": "A list of files that should be hark linked rather than copied (e.g. `launch.json`)",
                     "default": []
                 }
             }

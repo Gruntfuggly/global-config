@@ -2,6 +2,7 @@
 
 - Add support for hard links
 - Fix markdown lint errors in README.md and CHANGELOG.md
+- Allow links to be added through the settings GUI
 
 ## v0.0.12 - 2019-11-27
 
