@@ -40,6 +40,10 @@ This is an array of files which should be symlinked instead of copied. This is u
 
 *Note: For symlinks to work correctly under Windows 10 (and possible other Windows versions) you will need to run Code in **Developer Mode***.
 
+`global-config.hardLinks`
+
+This is an array of files which should be hard linked instead of copied.
+
 ## Output
 
 When the **Copy Global Config** is run, an output channel is created in the Output View. If the extension doesn't seem to be doing what you expect, please check the contents of the output channel.

@@ -28,6 +28,7 @@ function activate( context )
             fs.ensureDirSync( destination );
 
             let links = vscode.workspace.getConfiguration( 'global-config' ).get( 'links' );
+            let hardLinks = vscode.workspace.getConfiguration( 'global-config' ).get( 'hardLinks' );
 
             fs.readdir( source, ( err, list ) =>
             {
@@ -51,9 +52,14 @@ function activate( context )
                             }
                             else
                             {
-                                if( links.indexOf( entry ) > -1 )
+                                if( hardLinks.indexOf( entry ) > -1 )
                                 {
-                                    debug( "  Linking " + entry + " -> " + destination );
+                                    debug( "  Hard Linking " + entry + " -> " + destination );
+                                    fs.link( file, target );
+                                }
+                                else if( links.indexOf( entry ) > -1 )
+                                {
+                                    debug( "  Sym Linking " + entry + " -> " + destination );
                                     fs.symlinkSync( file, target );
                                 }
                                 else
