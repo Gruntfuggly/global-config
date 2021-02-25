@@ -1,5 +1,7 @@
 # Global Config Change Log
 
+## v0.0.13 - 2021-02-25
+
 - Add support for hard links
 - Fix markdown lint errors in README.md and CHANGELOG.md
 - Allow links to be added through the settings GUI
