@@ -22,7 +22,7 @@ You can install the latest version of the extension via the Visual Studio Market
 
 Alternatively, open Visual Studio code, press `Ctrl+P` or `Cmd+P` and type:
 
-> ext install global-config
+    > ext install global-config
 
 ### Source Code
 
