@@ -1,5 +1,7 @@
 # Global Config Change Log
 
+- Add support for globs in links, hard links and destinations
+
 ## v0.0.14 - 2021-03-01
 
 - Add support for alternative destination folders

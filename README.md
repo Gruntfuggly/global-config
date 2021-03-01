@@ -56,7 +56,9 @@ For example,
 }
 ```
 
-*Note: links and hardlinks settings are still applied to files copied to alternative destinations.*
+*Notes:*
+
+*Links, hard links and destinations can also use glob patterns to match files. Links and hardlinks settings are still applied to files copied to alternative destinations.*
 
 ## Output
 

@@ -3,6 +3,7 @@ var vscode = require( 'vscode' );
 var fs = require( 'fs-extra' );
 var os = require( 'os' );
 var path = require( 'path' );
+var micromatch = require( 'micromatch' );
 
 function activate( context )
 {
@@ -18,17 +19,41 @@ function activate( context )
         outputChannel.appendLine( text );
     }
 
+    function toObject( array )
+    {
+        return array.reduce( function( result, item, index )
+        {
+            result[ item ] = true;
+            return result;
+        }, {} );
+    }
+
     function copyConfig()
     {
         function copyToWorkspace( workspacePath, source )
         {
+            function findMatch( setting, filename )
+            {
+                var result;
+
+                Object.keys( setting ).map( function( entry )
+                {
+                    if( result === undefined && micromatch.isMatch( filename, entry ) )
+                    {
+                        result = setting[ entry ];
+                    }
+                } );
+
+                return result;
+            }
+
             debug( " Updating " + workspacePath + " from " + source );
 
             var defaultDestination = path.join( workspacePath, ".vscode" );
             fs.ensureDirSync( defaultDestination );
 
-            var links = vscode.workspace.getConfiguration( 'global-config' ).get( 'links' );
-            var hardLinks = vscode.workspace.getConfiguration( 'global-config' ).get( 'hardLinks' );
+            var links = toObject( vscode.workspace.getConfiguration( 'global-config' ).get( 'links' ) );
+            var hardLinks = toObject( vscode.workspace.getConfiguration( 'global-config' ).get( 'hardLinks' ) );
             var destinations = vscode.workspace.getConfiguration( 'global-config' ).get( 'destinations' );
 
             fs.readdir( source, function( err, list )
@@ -46,15 +71,11 @@ function activate( context )
                         var stat = fs.statSync( file );
                         if( stat )
                         {
-                            var destination = defaultDestination;
+                            var alternativeDestination = findMatch( destinations, entry );
 
-                            if( destinations[ entry ] !== undefined )
-                            {
-                                destination = destinations[ entry ];
-                            }
+                            var destination = alternativeDestination ? alternativeDestination : defaultDestination;
 
                             var target = path.join( destination, entry );
-                            debug( "target:" + target );
 
                             if( fs.existsSync( target ) )
                             {
@@ -64,12 +85,12 @@ function activate( context )
                             {
                                 try
                                 {
-                                    if( hardLinks.indexOf( entry ) > -1 )
+                                    if( findMatch( hardLinks, entry ) )
                                     {
                                         debug( "  Hard Linking " + entry + " -> " + destination );
                                         fs.link( file, target );
                                     }
-                                    else if( links.indexOf( entry ) > -1 )
+                                    if( findMatch( links, entry ) )
                                     {
                                         debug( "  Sym Linking " + entry + " -> " + destination );
                                         fs.symlinkSync( file, target );
@@ -82,8 +103,7 @@ function activate( context )
                                 }
                                 catch( e )
                                 {
-                                    debug( "   Failed:" + e
-                                    );
+                                    debug( "   Failed:" + e );
                                 }
                             }
                         }

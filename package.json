@@ -62,7 +62,8 @@
         }
     },
     "dependencies": {
-        "fs-extra": "^5.0.0"
+        "fs-extra": "^5.0.0",
+        "micromatch": "^4.0.2"
     },
     "__metadata": {
         "id": "9a3d81ec-d459-4139-aa0f-d07452e0e894",
