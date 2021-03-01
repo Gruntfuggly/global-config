@@ -1,5 +1,6 @@
 # Global Config Change Log
 
+- Add support for alternative destination folders
 - Add LICENSE
 
 ## v0.0.13 - 2021-02-25

@@ -22,7 +22,7 @@ You can install the latest version of the extension via the Visual Studio Market
 
 Alternatively, open Visual Studio code, press `Ctrl+P` or `Cmd+P` and type:
 
-    > ext install global-config
+> ext install global-config
 
 ### Source Code
 
@@ -43,6 +43,20 @@ This is an array of files which should be symlinked instead of copied. This is u
 `global-config.hardLinks`
 
 This is an array of files which should be hard linked instead of copied.
+
+`global-config.destinations`
+
+This is an mapping of files to alternative destinations.
+
+For example,
+
+```json
+"global-config.destinations": {
+    ".gitattributes": "/home/user/workspace"
+}
+```
+
+*Note: links and hardlinks settings are still applied to files copied to alternative destinations.*
 
 ## Output
 

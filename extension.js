@@ -1,8 +1,8 @@
 
-let vscode = require( 'vscode' ),
-    fs = require( 'fs-extra' ),
-    os = require( 'os' ),
-    path = require( 'path' );
+var vscode = require( 'vscode' );
+var fs = require( 'fs-extra' );
+var os = require( 'os' );
+var path = require( 'path' );
 
 function activate( context )
 {
@@ -24,13 +24,14 @@ function activate( context )
         {
             debug( " Updating " + workspacePath + " from " + source );
 
-            let destination = path.join( workspacePath, ".vscode" );
-            fs.ensureDirSync( destination );
+            var defaultDestination = path.join( workspacePath, ".vscode" );
+            fs.ensureDirSync( defaultDestination );
 
-            let links = vscode.workspace.getConfiguration( 'global-config' ).get( 'links' );
-            let hardLinks = vscode.workspace.getConfiguration( 'global-config' ).get( 'hardLinks' );
+            var links = vscode.workspace.getConfiguration( 'global-config' ).get( 'links' );
+            var hardLinks = vscode.workspace.getConfiguration( 'global-config' ).get( 'hardLinks' );
+            var destinations = vscode.workspace.getConfiguration( 'global-config' ).get( 'destinations' );
 
-            fs.readdir( source, ( err, list ) =>
+            fs.readdir( source, function( err, list )
             {
                 if( err )
                 {
@@ -38,34 +39,51 @@ function activate( context )
                 }
                 else
                 {
-                    list.forEach( ( entry ) =>
+                    list.forEach( function( entry )
                     {
-                        let file = path.join( source, entry );
+                        var file = path.join( source, entry );
 
-                        let stat = fs.statSync( file );
+                        var stat = fs.statSync( file );
                         if( stat )
                         {
-                            let target = path.join( destination, entry );
+                            var destination = defaultDestination;
+
+                            if( destinations[ entry ] !== undefined )
+                            {
+                                destination = destinations[ entry ];
+                            }
+
+                            var target = path.join( destination, entry );
+                            debug( "target:" + target );
+
                             if( fs.existsSync( target ) )
                             {
                                 debug( "  Ignoring existing " + target );
                             }
                             else
                             {
-                                if( hardLinks.indexOf( entry ) > -1 )
+                                try
                                 {
-                                    debug( "  Hard Linking " + entry + " -> " + destination );
-                                    fs.link( file, target );
+                                    if( hardLinks.indexOf( entry ) > -1 )
+                                    {
+                                        debug( "  Hard Linking " + entry + " -> " + destination );
+                                        fs.link( file, target );
+                                    }
+                                    else if( links.indexOf( entry ) > -1 )
+                                    {
+                                        debug( "  Sym Linking " + entry + " -> " + destination );
+                                        fs.symlinkSync( file, target );
+                                    }
+                                    else
+                                    {
+                                        debug( "  Copying " + entry + " -> " + destination );
+                                        fs.copySync( file, target, { overwrite: false } );
+                                    }
                                 }
-                                else if( links.indexOf( entry ) > -1 )
+                                catch( e )
                                 {
-                                    debug( "  Sym Linking " + entry + " -> " + destination );
-                                    fs.symlinkSync( file, target );
-                                }
-                                else
-                                {
-                                    debug( "  Copying " + entry + " -> " + destination );
-                                    fs.copySync( file, target, { overwrite: false } );
+                                    debug( "   Failed:" + e
+                                    );
                                 }
                             }
                         }
@@ -89,7 +107,7 @@ function activate( context )
             }
         }
 
-        let source = vscode.workspace.getConfiguration( 'global-config' ).get( 'folder' );
+        var source = vscode.workspace.getConfiguration( 'global-config' ).get( 'folder' );
 
         if( source.startsWith( "~" ) )
         {
@@ -125,11 +143,11 @@ function activate( context )
         }
     }
 
-    let disposable = vscode.commands.registerCommand( 'global-config.copy', copyConfig );
+    var disposable = vscode.commands.registerCommand( 'global-config.copy', copyConfig );
 
     debug( "Ready" );
 
     context.subscriptions.push( disposable );
 }
 exports.activate = activate;
-exports.deactivate = () => { };
+exports.deactivate = function() { };

@@ -52,6 +52,11 @@
                     "type": "array",
                     "markdownDescription": "A list of files that should be hark linked rather than copied (e.g. `launch.json`)",
                     "default": []
+                },
+                "global-config.destinations": {
+                    "type": "object",
+                    "markdownDescription": "A mapping of filenames to alternative destination folders. For example,\n\n```\n{ \".gitattributes\": \"/home/user/workspace\" }\n```",
+                    "default": {}
                 }
             }
         }
