@@ -1,5 +1,7 @@
 # Global Config Change Log
 
+- Add LICENSE
+
 ## v0.0.13 - 2021-02-25
 
 - Add support for hard links

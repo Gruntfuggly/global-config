@@ -8,6 +8,7 @@
     ],
     "icon": "icon.png",
     "version": "0.0.13",
+    "license": "MIT",
     "publisher": "Gruntfuggly",
     "repository": "https://github.com/Gruntfuggly/global-config",
     "engines": {
