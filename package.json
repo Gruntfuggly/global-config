@@ -7,7 +7,7 @@
         "multi-root ready"
     ],
     "icon": "icon.png",
-    "version": "0.0.15",
+    "version": "0.0.16",
     "license": "MIT",
     "publisher": "Gruntfuggly",
     "repository": "https://github.com/Gruntfuggly/global-config",

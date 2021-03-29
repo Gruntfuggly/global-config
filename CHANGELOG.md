@@ -1,5 +1,7 @@
 # Global Config Change Log
 
+## v0.0.16 - 2021-03-29
+
 - Add support for ${workspaceFolder} and environment variable substitution
 
 ## v0.0.15 - 2021-03-01
