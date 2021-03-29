@@ -1,5 +1,7 @@
 # Global Config Change Log
 
+- Add support for ${workspaceFolder} and environment variable substitution
+
 ## v0.0.15 - 2021-03-01
 
 - Add support for globs in links, hard links and destinations

@@ -46,13 +46,15 @@ This is an array of files which should be hard linked instead of copied.
 
 `global-config.destinations`
 
-This is an mapping of files to alternative destinations.
+This is an mapping of files to alternative destinations. Note: paths are absolute, but you can use `${workspaceFolder}`, or other environment variables and make them relative from there.
 
 For example,
 
 ```json
 "global-config.destinations": {
-    ".gitattributes": "/home/user/workspace"
+    ".gitattributes": "/home/user/workspace",
+    ".gitignore": "${workspaceFolder}/..",
+    ".defines": "${HOME}/temp"
 }
 ```
 

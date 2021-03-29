@@ -5,6 +5,8 @@ var os = require( 'os' );
 var path = require( 'path' );
 var micromatch = require( 'micromatch' );
 
+var envRegex = new RegExp( "\\$\\{(.*?)\\}", "g" );
+
 function activate( context )
 {
     var outputChannel;
@@ -26,6 +28,19 @@ function activate( context )
             result[ item ] = true;
             return result;
         }, {} );
+    }
+
+    function replaceVariables( text, workspacePath )
+    {
+        text = text.replace( "${workspaceFolder}", workspacePath );
+
+        text = text.replace( envRegex, function( match, name )
+        {
+            return process.env[ name ] ? process.env[ name ] : "";
+        } );
+
+
+        return text;
     }
 
     function copyConfig()
@@ -74,6 +89,8 @@ function activate( context )
                             var alternativeDestination = findMatch( destinations, entry );
 
                             var destination = alternativeDestination ? alternativeDestination : defaultDestination;
+
+                            destination = replaceVariables( destination, workspacePath );
 
                             var target = path.join( destination, entry );
 
